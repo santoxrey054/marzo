@@ -116,6 +116,31 @@ h1 {
 }
 
 
+/* Fondo negro al finalizar */
+.fondo-negro {
+  animation: oscurecer 3s ease-in-out forwards;
+}
+
+/* Capa de cobertura */
+.cobertura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  animation: oscurecer 3s ease-in-out forwards;
+}
+
+@keyframes oscurecer {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 
 

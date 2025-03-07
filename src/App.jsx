@@ -75,18 +75,22 @@
 
 import { useState, useEffect } from "react";
 import Mensaje from "./components/mensaje";
-import "./App.css";
 import RosaAnimada from "./components/RosaAnimada";
+import "./App.css";
 
 function App() {
   const [iniciado, setIniciado] = useState(false);
   const [animando, setAnimando] = useState(false);
   const [audio, setAudio] = useState(null);
+  const [finalizado, setFinalizado] = useState(false); // ⬅ Nuevo estado para detectar el fin
 
   useEffect(() => {
     const newAudio = new Audio("/tu.mp3"); // Archivo en 'public'
     newAudio.loop = false;
-    newAudio.onended = () => console.log("La canción terminó"); // Opcional: Mensaje en consola
+    newAudio.onended = () => {
+      console.log("La canción terminó");
+      setFinalizado(true); // ⬅ Cambia estado cuando termine la canción
+    };
     setAudio(newAudio);
   }, []);
 
@@ -105,21 +109,6 @@ function App() {
     }, 200);
   };
 
-  const fadeOutAudio = () => {
-    if (!audio) return;
-    let vol = 1;
-    const interval = setInterval(() => {
-      if (vol > 0) {
-        vol -= 0.05;
-        audio.volume = vol;
-      } else {
-        clearInterval(interval);
-        audio.pause();
-        audio.currentTime = 0; // Reinicia la canción para futuras veces
-      }
-    }, 200);
-  };
-
   const iniciarApp = () => {
     setAnimando(true);
     setTimeout(() => {
@@ -129,7 +118,7 @@ function App() {
   };
 
   return (
-    <div className={`container ${iniciado ? "fondo-activo" : ""}`}>
+    <div className={`container ${iniciado ? "fondo-activo" : ""} ${finalizado ? "fondo-negro" : ""}`}>
       {!iniciado && (
         <button className={`boton ${animando ? "salida" : ""}`} onClick={iniciarApp}>
           <h2>Iniciar</h2>
@@ -142,6 +131,9 @@ function App() {
           <RosaAnimada />
         </div>
       )}
+
+      {/* Capa de cobertura cuando finaliza */}
+      {finalizado && <div className="cobertura"></div>}
     </div>
   );
 }
