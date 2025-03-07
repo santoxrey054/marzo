@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: black;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 1.5s ease-in-out;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* EFECTO DE ENTRADA PARA EL FONDO */
+.fondo-activo {
+  animation: entrada-fondo 1.5s ease-in-out forwards;
+}
+
+@keyframes entrada-fondo {
+  0% {
+    background: black;
+  }
+  50% {
+    background: rgba(255, 69, 0, 0.5);
+  }
+  100% {
+    background: linear-gradient(135deg, #ff4500, #ff7300, #ffb347);
+  }
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #ffcc70;
+  text-shadow: 3px 3px 12px rgba(255, 204, 112, 0.8);
+  text-align: center;
+  opacity: 1;
+  white-space: normal; /* Permite que el texto salte a la siguiente línea */
+  word-break: break-word; /* Divide el texto en palabras para que no se desborde */
+  overflow: hidden;
+  width: 0; /* Inicialmente el ancho es 0 para que la animación lo expanda */
+  display: inline-block;
+
+  animation: escribir 4s steps(40, end) forwards, parpadeo 0.7s infinite;
+}
+
+
+.mensaje-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 500px;
+  height: auto;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* ✅ Evita parpadeo excesivo al final */
+.texto-maquina {
+  opacity: 1;
+  animation: escribir 5s steps(90) forwards;
+}
+
+/* ✅ Mantenemos la animación del cursor */
+@keyframes escribir {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ✅ Hace que el cursor parpadee solo mientras se escribe */
+.texto-maquina::after {
+  content: "|";
+  display: inline-block;
+  animation: parpadeo 0.7s infinite;
+}
+
+@keyframes parpadeo {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* Cursor animado */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: white;
+  animation: parpadeo 0.7s infinite;
+}
+
+
+
+
+
+.boton {
+  width: 200px;
+  height: 100px;
+  display: grid;
+  place-content: center;
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: transparent;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.boton h2 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 400;
+  font-family: 'Great Vibes', cursive;
+  
+  color: white;
+}
+
+.boton:hover {
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+/* ANIMACIÓN DE SALIDA DEL BOTÓN */
+.salida {
+  animation: desaparecer 0.5s ease-in-out forwards;
+}
+
+@keyframes desaparecer {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
